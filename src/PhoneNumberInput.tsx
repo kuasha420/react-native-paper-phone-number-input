@@ -1,19 +1,21 @@
 import React, { useState } from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, View } from 'react-native';
 import {
   DataTable,
   Modal,
   Portal,
   Searchbar,
   Surface,
+  Text,
   TextInput,
   TouchableRipple,
 } from 'react-native-paper';
+import type { TextInputProps } from 'react-native-paper';
 import { getCountryByCode } from './utils';
 import { FlatList } from 'react-native';
 import { countries } from './data/countries';
 
-export interface PhoneNumberInputProps {
+export interface PhoneNumberInputProps extends Omit<TextInputProps, 'value' | 'onChangeText'> {
   code?: string;
   setCode: React.Dispatch<React.SetStateAction<string | undefined>>;
   phoneNumber?: string;
@@ -25,6 +27,10 @@ export const PhoneNumberInput: React.FC<PhoneNumberInputProps> = ({
   setCode,
   phoneNumber = '',
   setPhoneNumber,
+  // Prpos from TextInput that needs special handling
+  disabled,
+  // rest of the props
+  ...rest
 }) => {
   // States for the modal
   const [visible, setVisible] = useState(false);
@@ -39,12 +45,10 @@ export const PhoneNumberInput: React.FC<PhoneNumberInputProps> = ({
     setPhoneNumber(value);
   };
 
-  let width = 52;
+  let width = 62;
 
   switch (country.dialCode.length) {
     case 1:
-      width = 53;
-      break;
     case 2:
       width = 62;
       break;
@@ -65,10 +69,16 @@ export const PhoneNumberInput: React.FC<PhoneNumberInputProps> = ({
   return (
     <View>
       <TextInput
+        {...rest}
+        disabled={disabled}
         onChangeText={onChangePhoneNumber}
         value={`${country.flag} ${country.dialCode} ${phoneNumber}`}
       />
-      <TouchableRipple style={[styles.ripple, { width }]} onPress={() => setVisible(true)}>
+      <TouchableRipple
+        disabled={disabled}
+        style={[styles.ripple, { width }]}
+        onPress={() => setVisible(true)}
+      >
         <Text> </Text>
       </TouchableRipple>
       <Portal>

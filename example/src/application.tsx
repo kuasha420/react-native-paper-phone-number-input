@@ -10,31 +10,36 @@ const Application: React.FC = () => {
 
   const selectedCountry = getCountryByCode(countryCode);
   return (
-    <SafeAreaView style={styles.container}>
-      <Text style={styles.title} variant="titleLarge">
-        React Native Paper Phone Number Input
-      </Text>
-      <PhoneNumberInput
-        code={countryCode}
-        setCode={setCountryCode}
-        phoneNumber={phoneNumber}
-        setPhoneNumber={setPhoneNumber}
-      />
-      <Surface style={styles.country}>
-        <View style={styles.left}>
-          <Text variant="titleMedium">Selected Country</Text>
-          <Text variant="bodyMedium"> Country Name: {selectedCountry.name}</Text>
-          <Text variant="bodyMedium"> Dial Code: {selectedCountry.dialCode}</Text>
-        </View>
-        <View style={styles.right}>
-          <Text style={styles.flag}>{selectedCountry.flag}</Text>
-        </View>
-      </Surface>
-    </SafeAreaView>
+    <Surface style={styles.fit}>
+      <SafeAreaView style={styles.container}>
+        <Text style={styles.title} variant="titleLarge">
+          React Native Paper Phone Number Input
+        </Text>
+        <PhoneNumberInput
+          code={countryCode}
+          setCode={setCountryCode}
+          phoneNumber={phoneNumber}
+          setPhoneNumber={setPhoneNumber}
+        />
+        <Surface elevation={5} style={styles.country}>
+          <View style={styles.left}>
+            <Text variant="titleMedium">Selected Country</Text>
+            <Text variant="bodyMedium"> Country Name: {selectedCountry.name}</Text>
+            <Text variant="bodyMedium"> Dial Code: {selectedCountry.dialCode}</Text>
+          </View>
+          <View style={styles.right}>
+            <Text style={styles.flag}>{selectedCountry.flag}</Text>
+          </View>
+        </Surface>
+      </SafeAreaView>
+    </Surface>
   );
 };
 
 const styles = StyleSheet.create({
+  fit: {
+    flex: 1,
+  },
   container: {
     flex: 1,
     padding: 16,
