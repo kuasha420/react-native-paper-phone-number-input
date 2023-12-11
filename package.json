@@ -1,0 +1,81 @@
+{
+  "name": "react-native-paper-phone-number-input",
+  "version": "1.0.0",
+  "description": "A phone number input component for react-native-paper with country flags",
+  "main": "dist/commonjs/index.js",
+  "module": "dist/module/index.js",
+  "react-native": "src/index.tsx",
+  "source": "src/index.tsx",
+  "types": "dist/typescript/src/index.d.ts",
+  "files": [
+    "src",
+    "dist",
+    "!**/__tests__",
+    "!**/__fixtures__",
+    "!**/__mocks__",
+    "/dist",
+    "package.json",
+    "LICENSE"
+  ],
+  "repository": "https://github.com/kuasha420/react-native-paper-phone-number-input",
+  "keywords": [
+    "react-native-paper",
+    "react-native",
+    "phone-number-input",
+    "react-native-phone-number-input",
+    "react-native-calling-code-picker"
+  ],
+  "author": "Arafat Zahan",
+  "license": "MIT",
+  "peerDependencies": {
+    "react": ">=18.2",
+    "react-native": ">=0.72",
+    "react-native-paper": ">=5",
+    "react-native-safe-area-context": ">=4.6",
+    "react-native-vector-icons": ">=10"
+  },
+  "scripts": {
+    "bootstrap": "yarn example && yarn",
+    "example": "yarn --cwd example",
+    "lint": "eslint \"**/*.{js,ts,tsx}\"",
+    "prepare": "rm -rf ./dist/* && bob build",
+    "prepublishOnly": "yarn"
+  },
+  "devDependencies": {
+    "@types/react": "~17.0.21",
+    "@types/react-native-vector-icons": "^6.4.18",
+    "eslint": "^8.4.1",
+    "eslint-config-prettier": "^8.5.0",
+    "eslint-plugin-prettier": "^4.0.0",
+    "expo": "~49.0.15",
+    "prettier": "^2.0.5",
+    "react": "18.2.0",
+    "react-native": "0.72.6",
+    "react-native-builder-bob": "^0.23.2",
+    "react-native-paper": "^5.11.3",
+    "react-native-safe-area-context": "^4.6.3",
+    "react-native-vector-icons": "10.0.1",
+    "typescript": "^5.0.2"
+  },
+  "resolutions": {
+    "@types/react": "17.0.21"
+  },
+  "eslintIgnore": [
+    "node_modules/",
+    "dist/"
+  ],
+  "react-native-builder-bob": {
+    "source": "src",
+    "output": "dist",
+    "targets": [
+      "commonjs",
+      "module",
+      [
+        "typescript",
+        {
+          "project": "tsconfig.build.json"
+        }
+      ]
+    ]
+  }
+}
