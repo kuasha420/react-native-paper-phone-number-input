@@ -23,6 +23,11 @@ const Application: React.FC = () => {
         <Text style={styles.title} variant="titleLarge">
           React Native Paper Phone Number Input
         </Text>
+        <Text style={styles.description} variant="bodyLarge">
+          A phone number input component for react-native-paper that allows user to select country
+          from a modal and input their phone number. It uses primitives from react-native-paper,
+          therefore, it feels very integrated with the rest of the components.
+        </Text>
         <PhoneNumberInput
           ref={ref}
           code={countryCode}
@@ -64,6 +69,10 @@ const styles = StyleSheet.create({
     padding: 16,
   },
   title: {
+    textAlign: 'center',
+    marginBottom: 16,
+  },
+  description: {
     textAlign: 'center',
     marginBottom: 16,
   },
