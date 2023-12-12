@@ -1,12 +1,15 @@
-import React, { useState } from 'react';
+import React, { useRef, useState } from 'react';
 import { StyleSheet, View } from 'react-native';
-import { Surface, Text } from 'react-native-paper';
+import { Button, Surface, Text } from 'react-native-paper';
+import type { PhoneNumberInputRef } from 'react-native-paper-phone-number-input';
 import { PhoneNumberInput, getCountryByCode } from 'react-native-paper-phone-number-input';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
 const Application: React.FC = () => {
-  const [countryCode, setCountryCode] = useState<string>();
+  const [countryCode, setCountryCode] = useState<string>('BD');
   const [phoneNumber, setPhoneNumber] = useState<string>();
+
+  const ref = useRef<PhoneNumberInputRef>(null);
 
   const selectedCountry = getCountryByCode(countryCode);
   return (
@@ -16,6 +19,7 @@ const Application: React.FC = () => {
           React Native Paper Phone Number Input
         </Text>
         <PhoneNumberInput
+          ref={ref}
           code={countryCode}
           setCode={setCountryCode}
           phoneNumber={phoneNumber}
@@ -29,6 +33,15 @@ const Application: React.FC = () => {
           </View>
           <View style={styles.right}>
             <Text style={styles.flag}>{selectedCountry.flag}</Text>
+          </View>
+        </Surface>
+        <Surface elevation={5} style={styles.handles}>
+          <Text style={styles.imperative} variant="titleMedium">
+            Imperative Handles
+          </Text>
+          <View style={styles.actions}>
+            <Button onPress={() => ref.current?.openCountryPicker()}>Open Picker</Button>
+            <Button onPress={() => ref.current?.closeCountryPicker()}>Close Picker</Button>
           </View>
         </Surface>
       </SafeAreaView>
@@ -61,6 +74,18 @@ const styles = StyleSheet.create({
   },
   flag: {
     fontSize: 48,
+  },
+  handles: {
+    marginTop: 16,
+    padding: 16,
+  },
+  imperative: {
+    textAlign: 'center',
+    marginBottom: 16,
+  },
+  actions: {
+    flexDirection: 'row',
+    justifyContent: 'space-evenly',
   },
 });
 
