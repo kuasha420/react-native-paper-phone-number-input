@@ -14,6 +14,7 @@ import {
 } from 'react-native-paper';
 import { countries } from './data/countries';
 import { getCountryByCode } from './utils';
+import { useDebouncedValue } from './use-debounced-value';
 
 type RNPaperTextInputRef = Pick<
   NativeTextInput,
@@ -54,6 +55,7 @@ export const PhoneNumberInput = forwardRef<PhoneNumberInputRef, PhoneNumberInput
 
     // States for the searchbar
     const [searchQuery, setSearchQuery] = useState('');
+    const debouncedSearchQuery = useDebouncedValue(searchQuery, 300);
 
     const country = getCountryByCode(code);
 
@@ -91,6 +93,23 @@ export const PhoneNumberInput = forwardRef<PhoneNumberInputRef, PhoneNumberInput
         ),
       ];
     }, [showFirstOnList]);
+
+    const searchResult = useMemo(() => {
+      if (!debouncedSearchQuery) {
+        return countriesList;
+      }
+
+      return countriesList.filter((country) => {
+        return (
+          (debouncedSearchQuery.length < 3 &&
+            country.code.toLocaleLowerCase().includes(debouncedSearchQuery.toLocaleLowerCase())) ||
+          (debouncedSearchQuery.length < 6 &&
+            Number.isInteger(Number(debouncedSearchQuery)) &&
+            country.dialCode.includes(debouncedSearchQuery)) ||
+          country.name.toLocaleLowerCase().includes(debouncedSearchQuery.toLocaleLowerCase())
+        );
+      });
+    }, [debouncedSearchQuery, countriesList]);
 
     let width = 62;
 
@@ -145,7 +164,7 @@ export const PhoneNumberInput = forwardRef<PhoneNumberInputRef, PhoneNumberInput
                   <DataTable.Title numeric>Dial Code</DataTable.Title>
                 </DataTable.Header>
                 <FlatList
-                  data={countriesList}
+                  data={searchResult}
                   keyExtractor={(item) => item.code}
                   renderItem={({ item }) => (
                     <DataTable.Row
