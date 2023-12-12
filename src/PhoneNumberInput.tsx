@@ -1,5 +1,7 @@
-import React, { forwardRef, useImperativeHandle, useRef, useState } from 'react';
-import { StyleSheet, View } from 'react-native';
+import React, { forwardRef, useImperativeHandle, useMemo, useRef, useState } from 'react';
+import type { TextInput as NativeTextInput } from 'react-native';
+import { FlatList, StyleSheet, View } from 'react-native';
+import type { TextInputProps } from 'react-native-paper';
 import {
   DataTable,
   Modal,
@@ -10,11 +12,8 @@ import {
   TextInput,
   TouchableRipple,
 } from 'react-native-paper';
-import type { TextInputProps } from 'react-native-paper';
-import { getCountryByCode } from './utils';
-import { FlatList } from 'react-native';
-import type { TextInput as NativeTextInput } from 'react-native';
 import { countries } from './data/countries';
+import { getCountryByCode } from './utils';
 
 type RNPaperTextInputRef = Pick<
   NativeTextInput,
@@ -31,6 +30,7 @@ export interface PhoneNumberInputProps extends Omit<TextInputProps, 'value' | 'o
   setCode: React.Dispatch<React.SetStateAction<string>>;
   phoneNumber?: string;
   setPhoneNumber: React.Dispatch<React.SetStateAction<string | undefined>>;
+  showFirstOnList?: string[];
 }
 
 export const PhoneNumberInput = forwardRef<PhoneNumberInputRef, PhoneNumberInputProps>(
@@ -40,6 +40,7 @@ export const PhoneNumberInput = forwardRef<PhoneNumberInputRef, PhoneNumberInput
       setCode,
       phoneNumber = '',
       setPhoneNumber,
+      showFirstOnList,
       // Prpos from TextInput that needs special handling
       disabled,
       keyboardType,
@@ -72,6 +73,24 @@ export const PhoneNumberInput = forwardRef<PhoneNumberInputRef, PhoneNumberInput
       openCountryPicker: () => setVisible(true),
       closeCountryPicker: () => setVisible(false),
     }));
+
+    const countriesList = useMemo(() => {
+      if (!showFirstOnList?.length) {
+        return countries;
+      }
+
+      const countriesToShowOnTop = showFirstOnList.map((code) => ({
+        ...getCountryByCode(code),
+        code,
+      }));
+
+      return [
+        ...countriesToShowOnTop,
+        ...countries.filter(
+          (country) => !countriesToShowOnTop.some((c) => c.code === country.code)
+        ),
+      ];
+    }, [showFirstOnList]);
 
     let width = 62;
 
@@ -126,7 +145,7 @@ export const PhoneNumberInput = forwardRef<PhoneNumberInputRef, PhoneNumberInput
                   <DataTable.Title numeric>Dial Code</DataTable.Title>
                 </DataTable.Header>
                 <FlatList
-                  data={countries}
+                  data={countriesList}
                   keyExtractor={(item) => item.code}
                   renderItem={({ item }) => (
                     <DataTable.Row

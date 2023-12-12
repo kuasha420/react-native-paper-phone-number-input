@@ -5,8 +5,13 @@ import type { PhoneNumberInputRef } from 'react-native-paper-phone-number-input'
 import { PhoneNumberInput, getCountryByCode } from 'react-native-paper-phone-number-input';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
+// list of countries that should be shown first in the country picker.
+// Put this variable outside the component to avoid re-creating it on each render
+// Or you can use useMemo() hook to create it.
+const countriesToShowFirst = ['BD', 'US', 'CA', 'GB', 'AU', 'IN', 'NZ'];
+
 const Application: React.FC = () => {
-  const [countryCode, setCountryCode] = useState<string>('BD');
+  const [countryCode, setCountryCode] = useState<string>('BD'); // Default country code
   const [phoneNumber, setPhoneNumber] = useState<string>();
 
   const ref = useRef<PhoneNumberInputRef>(null);
@@ -24,6 +29,7 @@ const Application: React.FC = () => {
           setCode={setCountryCode}
           phoneNumber={phoneNumber}
           setPhoneNumber={setPhoneNumber}
+          showFirstOnList={countriesToShowFirst}
         />
         <Surface elevation={5} style={styles.country}>
           <View style={styles.left}>
