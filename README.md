@@ -106,7 +106,7 @@ You can set the default country by setting the `code` prop. This prop accepts a 
 
 ### Why set the country code instead of the dial code?
 
-Multiple countries can have the same dial code. For example, the dial code for United States is +1 and the dial code for Canada is also +880. So, if we were to set the dial code instead of the country code, wrong flag would be shown for the country.
+Multiple countries can have the same dial code. For example, the dial code for United States is +1 and the dial code for Canada is also +1. So, if we were to set the dial code instead of the country code, wrong flag would be shown for the country.
 
 To solve this, this library uses the country code instead of the dial code. This library also exposes a `getCountryByCode` method that can be used to get the country details from the country code such as the dial code, country name and flag.
 
