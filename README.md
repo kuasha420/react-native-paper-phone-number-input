@@ -2,6 +2,13 @@
 
 🔥 Phone number number input component for React Native Paper that has a country code picker with emoji flags for speed and low footprint.
 
+## Screenshots
+
+| Theme | Number Input                                    | Country Picker                                   |
+| ----- | ----------------------------------------------- | ------------------------------------------------ |
+| Light | ![Light](/screenshots/input-light.png?raw=true) | ![Light](/screenshots/picker-light.png?raw=true) |
+| Dark  | ![Dark](./screenshots/input-dark.png?raw=true)  | ![Dark](/screenshots/picker-dark.png?raw=true)   |
+
 ## Features
 
 - Country code picker with emoji flags.
