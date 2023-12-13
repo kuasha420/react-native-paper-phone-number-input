@@ -1,5 +1,5 @@
 import React, { useRef, useState } from 'react';
-import { StyleSheet, View } from 'react-native';
+import { ScrollView, StyleSheet, View } from 'react-native';
 import { Button, Surface, Text } from 'react-native-paper';
 import type { PhoneNumberInputRef } from 'react-native-paper-phone-number-input';
 import { PhoneNumberInput, getCountryByCode } from 'react-native-paper-phone-number-input';
@@ -19,42 +19,44 @@ const Application: React.FC = () => {
   const selectedCountry = getCountryByCode(countryCode);
   return (
     <Surface style={styles.fit}>
-      <SafeAreaView style={styles.container}>
-        <Text style={styles.title} variant="titleLarge">
-          React Native Paper Phone Number Input
-        </Text>
-        <Text style={styles.description} variant="bodyLarge">
-          A phone number input component for react-native-paper that allows user to select country
-          from a modal and input their phone number. It uses primitives from react-native-paper,
-          therefore, it feels very integrated with the rest of the components.
-        </Text>
-        <PhoneNumberInput
-          ref={ref}
-          code={countryCode}
-          setCode={setCountryCode}
-          phoneNumber={phoneNumber}
-          setPhoneNumber={setPhoneNumber}
-          showFirstOnList={countriesToShowFirst}
-        />
-        <Surface elevation={5} style={styles.country}>
-          <View style={styles.left}>
-            <Text variant="titleMedium">Selected Country</Text>
-            <Text variant="bodyMedium"> Country Name: {selectedCountry.name}</Text>
-            <Text variant="bodyMedium"> Dial Code: {selectedCountry.dialCode}</Text>
-          </View>
-          <View style={styles.right}>
-            <Text style={styles.flag}>{selectedCountry.flag}</Text>
-          </View>
-        </Surface>
-        <Surface elevation={5} style={styles.handles}>
-          <Text style={styles.imperative} variant="titleMedium">
-            Imperative Handles
+      <SafeAreaView style={styles.fit}>
+        <ScrollView style={styles.container}>
+          <Text style={styles.title} variant="titleLarge">
+            React Native Paper Phone Number Input
           </Text>
-          <View style={styles.actions}>
-            <Button onPress={() => ref.current?.openCountryPicker()}>Open Picker</Button>
-            <Button onPress={() => ref.current?.closeCountryPicker()}>Close Picker</Button>
-          </View>
-        </Surface>
+          <Text style={styles.description} variant="bodyLarge">
+            A phone number input component for react-native-paper that allows user to select country
+            from a modal and input their phone number. It uses primitives from react-native-paper,
+            therefore, it feels very integrated with the rest of the components.
+          </Text>
+          <PhoneNumberInput
+            ref={ref}
+            code={countryCode}
+            setCode={setCountryCode}
+            phoneNumber={phoneNumber}
+            setPhoneNumber={setPhoneNumber}
+            showFirstOnList={countriesToShowFirst}
+          />
+          <Surface elevation={5} style={styles.country}>
+            <View style={styles.left}>
+              <Text variant="titleMedium">Selected Country</Text>
+              <Text variant="bodyMedium"> Country Name: {selectedCountry.name}</Text>
+              <Text variant="bodyMedium"> Dial Code: {selectedCountry.dialCode}</Text>
+            </View>
+            <View style={styles.right}>
+              <Text style={styles.flag}>{selectedCountry.flag}</Text>
+            </View>
+          </Surface>
+          <Surface elevation={5} style={styles.handles}>
+            <Text style={styles.imperative} variant="titleMedium">
+              Imperative Handles
+            </Text>
+            <View style={styles.actions}>
+              <Button onPress={() => ref.current?.openCountryPicker()}>Open Picker</Button>
+              <Button onPress={() => ref.current?.closeCountryPicker()}>Close Picker</Button>
+            </View>
+          </Surface>
+        </ScrollView>
       </SafeAreaView>
     </Surface>
   );
@@ -65,7 +67,6 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   container: {
-    flex: 1,
     padding: 16,
   },
   title: {

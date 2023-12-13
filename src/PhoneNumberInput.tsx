@@ -152,13 +152,13 @@ export const PhoneNumberInput = forwardRef<PhoneNumberInputRef, PhoneNumberInput
         </TouchableRipple>
         <Portal>
           <Modal
-            contentContainerStyle={styles.modalStyle}
+            contentContainerStyle={styles.flex1}
             visible={visible}
             onDismiss={() => setVisible(false)}
           >
             <Surface style={styles.countries}>
               <Searchbar placeholder="Search" onChangeText={setSearchQuery} value={searchQuery} />
-              <DataTable>
+              <DataTable style={styles.flex1}>
                 <DataTable.Header>
                   <DataTable.Title>Country</DataTable.Title>
                   <DataTable.Title numeric>Dial Code</DataTable.Title>
@@ -194,7 +194,7 @@ const styles = StyleSheet.create({
     bottom: 0,
     left: 0,
   },
-  modalStyle: {
+  flex1: {
     flex: 1,
   },
   countries: {
