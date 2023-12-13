@@ -1,6 +1,6 @@
 # React Native Paper Toast
 
-🔥 Phone number number input component for React Native Paper that has a country code picker with emoji flags for speed and low footprint.
+🔥 A material design Phone number input component for React Native Paper that has a country code picker with emoji flags for speed and low footprint. Performant and beautiful!
 
 ## Screenshots
 
