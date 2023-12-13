@@ -1,4 +1,7 @@
-# React Native Paper Toast
+# React Native Paper Phone Number Input
+
+[![npm version](https://badge.fury.io/js/react-native-paper-phone-number-input.svg)](https://badge.fury.io/js/react-native-paper-phone-number-input)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
 🔥 A material design Phone number input component for React Native Paper that has a country code picker with emoji flags for speed and low footprint. Performant and beautiful!
 
