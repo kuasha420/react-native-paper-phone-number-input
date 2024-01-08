@@ -1,3 +1,9 @@
 export { PhoneNumberInput } from './PhoneNumberInput';
-export type { PhoneNumberInputProps, PhoneNumberInputRef } from './PhoneNumberInput';
+export { CountryPicker } from './CountryPicker';
+export type {
+  PhoneNumberInputProps,
+  PhoneNumberInputRef,
+  CountryPickerProps,
+  CountryPickerRef,
+} from './types';
 export { getCountryByCode } from './utils';
