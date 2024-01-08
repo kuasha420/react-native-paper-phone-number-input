@@ -1,7 +1,5 @@
 import React, { forwardRef, useImperativeHandle, useMemo, useRef, useState } from 'react';
-import type { TextInput as NativeTextInput } from 'react-native';
 import { FlatList, StyleSheet, View } from 'react-native';
-import type { TextInputProps } from 'react-native-paper';
 import {
   DataTable,
   Modal,
@@ -15,24 +13,7 @@ import {
 import { countries } from './data/countries';
 import { getCountryByCode } from './utils';
 import { useDebouncedValue } from './use-debounced-value';
-
-type RNPaperTextInputRef = Pick<
-  NativeTextInput,
-  'focus' | 'clear' | 'blur' | 'isFocused' | 'setNativeProps'
->;
-
-export interface PhoneNumberInputRef extends RNPaperTextInputRef {
-  openCountryPicker: () => void;
-  closeCountryPicker: () => void;
-}
-
-export interface PhoneNumberInputProps extends Omit<TextInputProps, 'value' | 'onChangeText'> {
-  code?: string;
-  setCode: React.Dispatch<React.SetStateAction<string>>;
-  phoneNumber?: string;
-  setPhoneNumber: React.Dispatch<React.SetStateAction<string | undefined>>;
-  showFirstOnList?: string[];
-}
+import type { PhoneNumberInputProps, PhoneNumberInputRef, RNPaperTextInputRef } from './types';
 
 export const PhoneNumberInput = forwardRef<PhoneNumberInputRef, PhoneNumberInputProps>(
   (
