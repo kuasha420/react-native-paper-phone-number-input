@@ -2,7 +2,11 @@ import React, { useRef, useState } from 'react';
 import { ScrollView, StyleSheet, View } from 'react-native';
 import { Button, Surface, Text } from 'react-native-paper';
 import type { PhoneNumberInputRef } from 'react-native-paper-phone-number-input';
-import { PhoneNumberInput, getCountryByCode } from 'react-native-paper-phone-number-input';
+import {
+  CountryPicker,
+  PhoneNumberInput,
+  getCountryByCode,
+} from 'react-native-paper-phone-number-input';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
 // list of countries that should be shown first in the country picker.
@@ -13,6 +17,8 @@ const countriesToShowFirst = ['BD', 'US', 'CA', 'GB', 'AU', 'IN', 'NZ'];
 const Application: React.FC = () => {
   const [countryCode, setCountryCode] = useState<string>('BD'); // Default country code
   const [phoneNumber, setPhoneNumber] = useState<string>();
+
+  const [country, setCountry] = useState('Bermuda');
 
   const ref = useRef<PhoneNumberInputRef>(null);
 
@@ -56,6 +62,14 @@ const Application: React.FC = () => {
               <Button onPress={() => ref.current?.closeCountryPicker()}>Close Picker</Button>
             </View>
           </Surface>
+          <Text style={styles.title} variant="titleLarge">
+            Country Picker
+          </Text>
+          <CountryPicker
+            showFirstOnList={countriesToShowFirst}
+            country={country}
+            setCountry={setCountry}
+          />
         </ScrollView>
       </SafeAreaView>
     </Surface>
@@ -92,7 +106,7 @@ const styles = StyleSheet.create({
     fontSize: 48,
   },
   handles: {
-    marginTop: 16,
+    marginVertical: 16,
     padding: 16,
   },
   imperative: {
