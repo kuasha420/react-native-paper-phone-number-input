@@ -89,6 +89,23 @@ A more complete example can be found in the `example` directory.
 | `openCountryPicker`  | Opens the country code picker.  |
 | `closeCountryPicker` | Closes the country code picker. |
 
+#### `CountryPicker`
+
+##### Props
+
+| Prop         | Type                     | Description                                                                               | Notes     |
+| ------------ | ------------------------ | ----------------------------------------------------------------------------------------- | --------- |
+| `country`    | `string`                 | The country                                                                               | Optional. |
+| `setCountry` | `(code: string) => void` | A function that sets the country code.                                                    | Required. |
+| `...rest`    | `...TextInputProps`      | Any other props that you want to pass to the `TextInput` component of React Native Paper. | Optional. |
+
+#### Ref Methods
+
+| Method Name          | Description                |
+| -------------------- | -------------------------- |
+| `openCountryPicker`  | Opens the country picker.  |
+| `closeCountryPicker` | Closes the country picker. |
+
 ### `getCountryByCode`
 
 ```ts
