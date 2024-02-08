@@ -23,6 +23,7 @@ export const CountryPicker = forwardRef<CountryPickerRef, CountryPickerProps>(
       showFirstOnList,
       // Prpos from TextInput that needs special handling
       disabled,
+      editable,
       keyboardType,
       // rest of the props
       ...rest
@@ -101,11 +102,12 @@ export const CountryPicker = forwardRef<CountryPickerRef, CountryPickerProps>(
           right={<TextInput.Icon icon="chevron-down" />}
           {...rest}
           disabled={disabled}
+          editable={editable}
           onChangeText={setCountry}
           value={value}
         />
         <TouchableRipple
-          disabled={disabled}
+          disabled={disabled || !editable}
           style={[styles.ripple]}
           onPress={() => setVisible(true)}
         >

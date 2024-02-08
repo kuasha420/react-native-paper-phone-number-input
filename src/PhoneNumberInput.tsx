@@ -25,6 +25,7 @@ export const PhoneNumberInput = forwardRef<PhoneNumberInputRef, PhoneNumberInput
       showFirstOnList,
       // Prpos from TextInput that needs special handling
       disabled,
+      editable,
       keyboardType,
       // rest of the props
       ...rest
@@ -120,12 +121,13 @@ export const PhoneNumberInput = forwardRef<PhoneNumberInputRef, PhoneNumberInput
           ref={textInputRef}
           {...rest}
           disabled={disabled}
+          editable={editable}
           onChangeText={onChangePhoneNumber}
           value={`${country.flag} ${country.dialCode} ${phoneNumber}`}
           keyboardType={keyboardType || 'phone-pad'}
         />
         <TouchableRipple
-          disabled={disabled}
+          disabled={disabled || !editable}
           style={[styles.ripple, { width }]}
           onPress={() => setVisible(true)}
         >
