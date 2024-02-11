@@ -25,7 +25,7 @@ export const PhoneNumberInput = forwardRef<PhoneNumberInputRef, PhoneNumberInput
       showFirstOnList,
       // Prpos from TextInput that needs special handling
       disabled,
-      editable,
+      editable = true,
       keyboardType,
       // rest of the props
       ...rest

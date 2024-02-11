@@ -23,7 +23,7 @@ export const CountryPicker = forwardRef<CountryPickerRef, CountryPickerProps>(
       showFirstOnList,
       // Prpos from TextInput that needs special handling
       disabled,
-      editable,
+      editable = true,
       keyboardType,
       // rest of the props
       ...rest

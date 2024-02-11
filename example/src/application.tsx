@@ -63,6 +63,30 @@ const Application: React.FC = () => {
             </View>
           </Surface>
           <Text style={styles.title} variant="titleLarge">
+            Disabled State
+          </Text>
+          <PhoneNumberInput
+            ref={ref}
+            code={countryCode}
+            setCode={setCountryCode}
+            phoneNumber={phoneNumber}
+            setPhoneNumber={setPhoneNumber}
+            showFirstOnList={countriesToShowFirst}
+            disabled
+          />
+          <Text style={styles.subtitle} variant="titleLarge">
+            Not Editable
+          </Text>
+          <PhoneNumberInput
+            ref={ref}
+            code={countryCode}
+            setCode={setCountryCode}
+            phoneNumber={phoneNumber}
+            setPhoneNumber={setPhoneNumber}
+            showFirstOnList={countriesToShowFirst}
+            editable={false}
+          />
+          <Text style={styles.subtitle} variant="titleLarge">
             Country Picker
           </Text>
           <CountryPicker
@@ -86,6 +110,10 @@ const styles = StyleSheet.create({
   title: {
     textAlign: 'center',
     marginBottom: 16,
+  },
+  subtitle: {
+    textAlign: 'center',
+    marginVertical: 16,
   },
   description: {
     textAlign: 'center',
