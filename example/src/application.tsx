@@ -1,5 +1,5 @@
 import React, { useRef, useState } from 'react';
-import { ScrollView, StyleSheet, View } from 'react-native';
+import { Platform, ScrollView, StyleSheet, View } from 'react-native';
 import { Button, Surface, Text } from 'react-native-paper';
 import type { PhoneNumberInputRef } from 'react-native-paper-phone-number-input';
 import {
@@ -24,8 +24,8 @@ const Application: React.FC = () => {
 
   const selectedCountry = getCountryByCode(countryCode);
   return (
-    <Surface style={styles.fit}>
-      <SafeAreaView style={styles.fit}>
+    <Surface style={Platform.OS !== 'ios' ? styles.fit : undefined}>
+      <SafeAreaView style={Platform.OS !== 'ios' ? styles.fit : undefined}>
         <ScrollView style={styles.container}>
           <Text style={styles.title} variant="titleLarge">
             React Native Paper Phone Number Input
