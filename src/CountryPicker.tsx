@@ -1,19 +1,22 @@
 import React, { forwardRef, useEffect, useImperativeHandle, useMemo, useState } from 'react';
-import { FlatList, StyleSheet, View } from 'react-native';
+import { FlatList, Platform, StyleSheet, View } from 'react-native';
 import {
   DataTable,
   Modal,
   Portal,
   Searchbar,
-  Surface,
   Text,
   TextInput,
   TouchableRipple,
+  useTheme,
 } from 'react-native-paper';
 import { countries } from './data/countries';
 import { useDebouncedValue } from './use-debounced-value';
 import { getCountryByCode } from './utils';
 import type { CountryPickerProps, CountryPickerRef } from './types';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
+
+const isIOS = Platform.OS === 'ios';
 
 export const CountryPicker = forwardRef<CountryPickerRef, CountryPickerProps>(
   (
@@ -30,6 +33,9 @@ export const CountryPicker = forwardRef<CountryPickerRef, CountryPickerProps>(
     },
     ref
   ) => {
+    const insets = useSafeAreaInsets();
+    const theme = useTheme();
+
     // States for the modal
     const [visible, setVisible] = useState(false);
 
@@ -115,30 +121,41 @@ export const CountryPicker = forwardRef<CountryPickerRef, CountryPickerProps>(
         </TouchableRipple>
         <Portal>
           <Modal
-            contentContainerStyle={styles.flex1}
+            style={{
+              backgroundColor: theme.colors.background,
+              marginTop: undefined,
+              marginBottom: undefined,
+              justifyContent: undefined,
+              paddingTop: insets.top,
+              paddingBottom: insets.bottom,
+            }}
+            contentContainerStyle={[
+              styles.countries,
+              {
+                justifyContent: undefined,
+              },
+            ]}
             visible={visible}
             onDismiss={() => setVisible(false)}
           >
-            <Surface style={styles.countries}>
-              <Searchbar placeholder="Search" onChangeText={setSearchQuery} value={searchQuery} />
-              <DataTable style={styles.flex1}>
-                <FlatList
-                  data={searchResult}
-                  keyExtractor={(item) => item.code}
-                  renderItem={({ item }) => (
-                    <DataTable.Row
-                      onPress={() => {
-                        setCountry(item.name);
-                        setCountryFlag(item.flag);
-                        setVisible(false);
-                      }}
-                    >
-                      <DataTable.Cell>{`${item.flag}     ${item.name}`}</DataTable.Cell>
-                    </DataTable.Row>
-                  )}
-                />
-              </DataTable>
-            </Surface>
+            <Searchbar placeholder="Search" onChangeText={setSearchQuery} value={searchQuery} />
+            <DataTable style={styles.flex1}>
+              <FlatList
+                data={searchResult}
+                keyExtractor={(item) => item.code}
+                renderItem={({ item }) => (
+                  <DataTable.Row
+                    onPress={() => {
+                      setCountry(item.name);
+                      setCountryFlag(item.flag);
+                      setVisible(false);
+                    }}
+                  >
+                    <DataTable.Cell>{`${item.flag}     ${item.name}`}</DataTable.Cell>
+                  </DataTable.Row>
+                )}
+              />
+            </DataTable>
           </Modal>
         </Portal>
       </View>
@@ -155,10 +172,11 @@ const styles = StyleSheet.create({
     right: 0,
   },
   flex1: {
-    flex: 1,
+    flex: isIOS ? undefined : 1,
   },
   countries: {
     padding: 16,
-    flex: 1,
+    flex: isIOS ? undefined : 1,
+    marginBottom: isIOS ? 150 : undefined,
   },
 });
